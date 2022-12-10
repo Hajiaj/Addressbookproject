@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('scan and build') {
             steps {
-            withSonarQubeEnv(installationName: 'mysonarqube', credentialsId: 'sonarqube-jen') {
+            withSonarQubeEnv(installationName: 'mysonarqube', credentialsId: 'sonarjen') {
               sh 'mvn clean package sonar:sonar'
    }       
            }
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sshagent(['Best _Jenkins']) {
     // scp <src_dir> users@tomcatip:tomcat/webapps
-                   sh 'scp -o StrictHostKeyChecking=no target/*.war best@3.142.144.7:/home/best/tomcat/webapps'
+                   sh 'scp -o StrictHostKeyChecking=no target/*.war best@18.224.8.80:/home/best/tomcat/webapps'
     }
            }   
        }
