@@ -9,5 +9,14 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+       stage('deploy') {
+            steps {
+                sshagent(['betteronjenkins']) {
+    // scp <src_dir> user@tomcatIP:/tomcat/webapps
+    sh 'scp -o StrictHostChecking=no target/*.war good@3.133.157.194:/home/good/tomcat/webapps'
+}
+       }
+           }
+
     }
 }
