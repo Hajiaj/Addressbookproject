@@ -4,16 +4,18 @@ pipeline {
       maven 'mymaven'
       }
     stages {
-        stage('build') {
+        stage('scan and build') {
             steps {
-                sh 'mvn clean package'
+            withSonarQubeEnv(installationName: 'mysonarqube', credentialsId: 'sonarqube-jen') {
+                sh 'mvn clean package sonar:sonar'
+}                
             }
         }
        stage('deploy') {
             steps {
                 sshagent(['betteronjenkins']) {
     // scp <src_dir> user@tomcatIP:/tomcat/webapps
-    sh "scp -o StrictHostKeyChecking=no target/*.war good@3.133.108.160:/home/good/tomcat/webapps"
+    sh "scp -o StrictHostKeyChecking=no target/*.war good@3.135.185.131:/home/good/tomcat/webapps"
 }
        }
            }
