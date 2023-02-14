@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sshagent(['project_jenkins']) {
     // scp <src_dir> user@tomcatIP:/tomcat/webapps
-    sh "scp -o StrictHostKeyChecking=no target/*.war project@18.118.151.171:/home/project/tomcat/webapps"
+    sh "scp -o StrictHostKeyChecking=no target/*.war project@3.144.108.163:/home/project/tomcat/webapps"
 }
        }
            }
